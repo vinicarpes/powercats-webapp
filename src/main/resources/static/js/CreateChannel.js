@@ -72,7 +72,7 @@ document.getElementById('deviceForm').addEventListener('submit', async function(
     };
 
     try {
-        const response = await fetch('http://localhost:8085/api/v2/channel-devices', {
+        const response = await fetch('https://powercats-webservice.onrender.com/api/v2/channel-devices', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
