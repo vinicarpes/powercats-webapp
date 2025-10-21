@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // endpoint base
-    const API_BASE = "http://localhost:8085";
+    const API_BASE = "https://powercats-webservice.onrender.com";
 
     // array para guardar ids removidos (sensores que existiam no servidor e foram deletados no modal)
     const removedSensorIds = [];
