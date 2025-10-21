@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container mt-5 w-50">
+  <h2 class="text-center mb-4 text-custom">Login</h2>
+  <form th:action="@{/login}" method="post">
+    <div th:if="${param.error}" class="alert alert-danger">
+      Email ou senha inválidos
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">
+      Você foi deslogado com sucesso
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text mb-4"><span class="material-symbols-outlined">mail</span></span>
+        </div>
+        <input type="email" class="form-control mb-4 borda" id="email" name="username" placeholder="exemplo@gmail.com" required>
+        <!-- Note que mudamos o name para "username" (padrão do Spring Security) -->
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text mb-5"><span class="material-symbols-outlined">lock</span></span>
+        </div>
+        <input type="password" class="form-control mb-5 borda" id="password" name="password" required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block bg-custom rounded-pill mb-4 d-flex butt">
+      <span class="material-symbols-outlined">logout</span>
+      <span class="flex-grow-1">Login</span>
+    </button>
+  </form>
+  <div class="direita">
+    <a href="/register" class="mt-3 text-custom ">Criar uma conta</a>
+  </div>
+  <button type="button" class="btn btn-outline-primary btn-block mt-3 bg-custom text-light rounded-pill d-flex butt">
+    <i class="fab fa-google mt-1"></i>
+    <span class="flex-grow-1">Entrar com Google</span>
+  </button>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Detalhes do Dispositivo</title>
+</head>
+<body>
+    <div class="container mt-5 w-50">
+        <h2 class="text-center mb-4 text-custom">Detalhes do Dispositivo</h2>
+
+        <form>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>ID</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mb-4 borda" placeholder="7fb2289d0eba4ad09eb2a1f252c54de6" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Nome</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mb-4 borda" placeholder="Dispositivo 1" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Serial</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mb-4 borda" placeholder="E0-C4-2C-25-79-51" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>ID do Canal do Gateway</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mb-4 borda" placeholder="23bf9a2cb3a944febc04d1760ebe765f" required>
+                        </div>
+                    </div>
+                </div>
+                <label>Descrição</label>
+                <textarea class="form-control mb-4 borda" rows="2" cols="120"></textarea>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sensores</th>
+                            <th>Ultima Atualização</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Luminosidade</td>
+                            <td>xx/xx/xxxx</td>
+                            <td>100</td>
+                        </tr>
+                    <tr>
+                        <td>Vibração</td>
+                        <td>xx/xx/xxxx</td>
+                        <td>10</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Data da Ativação</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control mb-4 borda" placeholder="xx / xx / xxxx às xx:xx" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Data da Última Atualização</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control mb-4 borda" placeholder="xx / xx / xxxx às xx:xx" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Localização</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mb-4 borda" placeholder="Rua José Maria, 100, Florianópolis, SC" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label>Instalador</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control mb-4 borda" placeholder="Fulano de Tal" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label>Habilitado</label>
+                        <div class="input-group form-control mb-4 borda">
+                            <input type="checkbox" required>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="d-flex">
+                    <button type="button" class="btn btn-block bg-custom rounded-pill mr-3 bc">
+                        <span>Cancelar</span>
+                    </button>
+
+                    <button type="button" class="btn btn-block bg-custom text-light rounded-pill ">
+                        <span>Salvar</span>
+                    </button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+</body>
+</html>

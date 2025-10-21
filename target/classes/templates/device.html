@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastrar Dispositivo</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .text-custom { color: #ff6600; font-weight: 500; }
+    .borda { border-radius: 10px; }
+    .sensor-card { padding: 15px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 10px; background: #fff; }
+    .add-sensor-btn { background-color: #ff6600; color: white; border: none; border-radius: 10px; padding: 8px 20px; margin-top: 10px; }
+    .remove-sensor-btn { background-color: #dc3545; color: white; border: none; border-radius: 50%; width: 35px; height: 35px; font-size: 1.2rem; display: flex; justify-content: center; align-items: center; }
+    .form-section { margin-bottom: 25px; padding: 15px; background: #f8f9fa; border-radius: 10px; }
+    #deviceForm button[type="submit"] { background-color: #ff6600; color: #fff; font-weight: 500; border-radius: 50px; padding: 10px 20px; width: 100%; }
+  </style>
+</head>
+<body>
+<nav th:replace="~{fragments :: navHeader('Administrador')}"></nav>
+
+<div id="alerts-container"></div>
+
+<div class="container mt-5 w-75">
+  <h2 class="text-center mb-5 text-custom">Cadastrar Dispositivo</h2>
+
+  <form id="deviceForm">
+    <!-- Dados do dispositivo -->
+    <div class="form-section">
+      <h5 class="mb-3 text-custom">Informações do Dispositivo</h5>
+      <div class="row">
+        <div class="col-lg-6 mb-3">
+          <label for="serial">Serial</label>
+          <input type="text" id="serial" class="form-control borda" placeholder="E0-C4-2C-25-79-51" required>
+        </div>
+        <div class="col-lg-6 mb-3">
+          <label for="name">Nome</label>
+          <input type="text" id="name" class="form-control borda" placeholder="Dispositivo 1" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description">Descrição</label>
+        <textarea id="description" rows="3" class="form-control borda" placeholder="Digite uma descrição"></textarea>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" id="active" class="form-check-input">
+        <label for="active" class="form-check-label">Dispositivo Ativo</label>
+      </div>
+    </div>
+
+    <!-- Localização -->
+    <div class="form-section">
+      <h5 class="mb-3 text-custom">Localização</h5>
+      <div class="row">
+        <div class="col-lg-4 mb-3">
+          <label for="latitude">Latitude</label>
+          <input type="number" id="latitude" step="0.000001" class="form-control borda" placeholder="-23.561684" required>
+        </div>
+        <div class="col-lg-4 mb-3">
+          <label for="longitude">Longitude</label>
+          <input type="number" id="longitude" step="0.000001" class="form-control borda" placeholder="-46.625378" required>
+        </div>
+        <div class="col-lg-4 mb-3">
+          <label for="elevation">Elevação (m)</label>
+          <input type="number" id="elevation" class="form-control borda" placeholder="760">
+        </div>
+      </div>
+    </div>
+
+    <!-- Sensores -->
+    <div class="form-section">
+      <h5 class="mb-3 text-custom">Sensores</h5>
+      <div id="sensorsContainer">
+        <div class="sensor-card row align-items-center mb-3 p-2 border rounded">
+          <div class="col-lg-3 mb-2">
+            <input type="text" class="form-control borda sensorName" placeholder="Nome do Sensor" required>
+          </div>
+          <div class="col-lg-2 mb-2">
+            <select class="form-control borda sensorType">
+              <option value="">Tipo do Sensor</option>
+              <option value="LUMINOSITY">Luminosity</option>
+              <option value="TEMPERATURE">Temperature</option>
+              <option value="VIBRATION">Vibration</option>
+              <option value="CURRENT">Current</option>
+              <option value="HUMIDITY">Humidity</option>
+            </select>
+          </div>
+          <div class="col-lg-2 mb-2">
+            <input type="number" class="form-control refLow" placeholder="Low">
+          </div>
+          <div class="col-lg-2 mb-2">
+            <input type="number" class="form-control refModerate" placeholder="Moderate">
+          </div>
+          <div class="col-lg-2 mb-2">
+            <input type="number" class="form-control refSevere" placeholder="Severe">
+          </div>
+          <div class="col-lg-2 mb-2">
+            <input type="number" class="form-control refCritical" placeholder="Critical">
+          </div>
+          <div class="col-lg-1 mb-2 d-flex align-items-center">
+            <button type="button" class="remove-sensor-btn btn btn-danger">&times;</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" id="addSensorBtn" class="btn btn-outline-primary mb-4">Adicionar Sensor</button>
+    </div>
+
+    <!-- Botão cadastrar -->
+    <button type="submit">Cadastrar Dispositivo</button>
+  </form>
+</div>
+
+<div id="alert-details-modal" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <button class="close-modal" onclick="closeAlertDetails()" aria-label="Fechar">✕</button>
+
+    <div class="modal-header">
+      <h3 id="modal-title" class="text-custom">Detalhes do Alerta</h3>
+      <div class="meta-badges" aria-hidden="false">
+        <span id="modal-level" class="badge level">—</span>
+        <span id="modal-status" class="badge status">—</span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="d-flex justify-content-between align-items-start">
+        <p class="mb-1"><strong>ID:</strong> <span id="modal-id">—</span></p>
+        <p class="mb-1 small-muted" id="modal-date">—</p>
+      </div>
+
+      <div class="description" aria-live="polite">
+        <strong>Descrição:</strong>
+        <div id="modal-description">—</div>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <label for="modal-status-select" style="margin-right:6px;"><strong>Novo Status:</strong></label>
+      <select id="modal-status-select" class="form-control mb-2">
+        <option value="PENDING">PENDING</option>
+        <option value="CANCELLED">CANCELLED</option>
+        <option value="FULFILLED">FULFILLED</option>
+      </select>
+
+      <button class="btn-update" onclick="updateAlertStatus()">Atualizar Status</button>
+      <button class="btn-neutral" onclick="closeAlertDetails()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- container para cards flutuantes (mantive seu id) -->
+<div id="alert-details-container"></div>
+<script src="/js/AlertWebsocket.js"></script>
+<script src="/js/CreateChannel.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</body>
+</html>

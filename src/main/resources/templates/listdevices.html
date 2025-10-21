@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Lista de Dispositivos</title>
+</head>
+<body>
+<div class="container mt-5 w-100">
+    <div class="d-flex justify-content-center">
+        <div class="p-2 w-100 align-content-center mt-5">
+            <h2 class="text-center mb-5 text-custom">Dispositivos Cadastrados</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Serial</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>E0-C4-2C-25-79-51</td>
+                    <td>Dispositivo 1</td>
+                    <td>Lorem ipsum</td>
+                    <td><button class=" rig rounded-pill"><span class="material-symbols-outlined pt-2 text-white">delete</span></button></td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td>Linhas por páginas</td>
+                    <td>
+                        <select class="custom-select">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button class="rounded-pill fir"><span class="material-symbols-outlined mt-1">first_page</span></button>
+                        <button class="rounded-pill fir"><span class="material-symbols-outlined ml-2 mt-1 ">arrow_back_ios</span></button>
+                        <button class="rounded-pill bac"><span class="material-symbols-outlined ml-2 mt-1">arrow_forward_ios</span></button>
+                        <button class="rounded-pill bac"><span class="material-symbols-outlined mt-1">last_page</span></button>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+
+            <a href="/device">
+                <button class="opt2">
+                    <div class="mt-2">
+                        <span class="material-symbols-outlined">add</span>
+                    </div>
+                </button>
+
+            </a>
+        </div>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head th:replace="~{fragments :: head(Administrador)}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+<nav th:replace="~{fragments :: navHeader('Administrador')}"></nav>
+
+<div id="alerts-container"></div>
+
+
+<div class="container-fluid mt-4">
+    <div class="d-flex mt-4">
+        <!-- Lista de dispositivos -->
+        <div class="device-list-container list-group w-25 mr-3">
+            <li th:each="device : ${devices}"
+                class="list-group-item list-group-item-action"
+                th:text="${device.name}"
+                th:data-id="${device.id}"
+                th:data-name="${device.name}"
+                th:data-serial="${device.serial}"
+                th:data-description="${device.description}"
+                th:data-lat="${device.location != null ? device.location.latitude : ''}"
+                th:data-lng="${device.location != null ? device.location.longitude : ''}"
+                th:data-elevation="${device.location != null ? device.location.elevation : ''}"
+                th:data-active="${device.active}"
+                th:data-created="${device.created_at}"
+                th:data-updated="${device.updated_at}"
+                th:data-activated="${device.activated_at}"
+                th:attr="data-fields=${fieldsJsonMap[device.id]}"
+                onclick="showDeviceDetails(this)">
+            </li>
+        </div>
+
+        <!-- Detalhes do dispositivo -->
+        <div class="device-details flex-fill p-3 border rounded mr-3 position-relative">
+            <!-- Botão de editar (lápis) -->
+            <button type="button" class="btn btn-sm btn-outline-secondary position-absolute"
+                    style="top: 10px; right: 10px;" title="Editar dispositivo"
+                    data-bs-toggle="modal" data-bs-target="#editDeviceModal">
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+
+
+            <h4 id="device-name">Selecione um dispositivo</h4>
+            <p><strong>Serial:</strong> <span id="device-serial"></span></p>
+            <p><strong>Descrição:</strong> <span id="device-description"></span></p>
+            <p><strong>Criado em:</strong> <span id="device-created"></span></p>
+            <p><strong>Última atualização:</strong> <span id="device-updated"></span></p>
+            <p><strong>Ativado em:</strong> <span id="device-activated"></span></p>
+            <p><strong>Ativo:</strong> <span id="device-active"></span></p>
+        </div>
+
+        <!-- Modal de edição -->
+        <div class="modal fade" id="editDeviceModal" tabindex="-1" role="dialog" aria-labelledby="editDeviceModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form id="editDeviceForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editDeviceModalLabel">Editar Dispositivo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fechar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="edit-device-id">
+
+                            <div class="form-group">
+                                <label for="edit-name">Nome</label>
+                                <input type="text" id="edit-name" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-serial">Serial</label>
+                                <input type="text" id="edit-serial" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edit-description">Descrição</label>
+                                <textarea id="edit-description" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="edit-latitude">Latitude</label>
+                                    <input type="number" id="edit-latitude" class="form-control" step="0.000001">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="edit-longitude">Longitude</label>
+                                    <input type="number" id="edit-longitude" class="form-control" step="0.000001">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="edit-elevation">Elevação</label>
+                                    <input type="number" id="edit-elevation" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="edit-active">
+                                <label class="form-check-label" for="edit-active">Ativo</label>
+                            </div>
+
+                            <hr>
+                            <h5>Sensores</h5>
+                            <!-- Container onde os sensores serão adicionados pelo JS -->
+                            <div id="edit-sensors-container"></div>
+                            <!-- Botão para adicionar sensor -->
+                            <button type="button" id="addEditSensorBtn" class="btn btn-outline-primary mt-2">Adicionar
+                                Sensor
+                            </button>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Mapa -->
+        <div id="map" style="height: 400px; width: 400px; border:1px solid #ff6600; border-radius:8px;"></div>
+    </div>
+</div>
+
+<div id="alert-details-modal" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <button class="close-modal" onclick="closeAlertDetails()" aria-label="Fechar">✕</button>
+
+        <div class="modal-header">
+            <h3 id="modal-title" class="text-custom">Detalhes do Alerta</h3>
+            <div class="meta-badges" aria-hidden="false">
+                <span id="modal-level" class="badge level">—</span>
+                <span id="modal-status" class="badge status">—</span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="d-flex justify-content-between align-items-start">
+                <p class="mb-1"><strong>ID:</strong> <span id="modal-id">—</span></p>
+                <p class="mb-1 small-muted" id="modal-date">—</p>
+            </div>
+
+            <div class="description" aria-live="polite">
+                <strong>Descrição:</strong>
+                <div id="modal-description">—</div>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <label for="modal-status-select" style="margin-right:6px;"><strong>Novo Status:</strong></label>
+            <select id="modal-status-select" class="form-control mb-2">
+                <option value="PENDING">PENDING</option>
+                <option value="CANCELLED">CANCELLED</option>
+                <option value="FULFILLED">FULFILLED</option>
+            </select>
+
+            <button class="btn-update" onclick="updateAlertStatus()">Atualizar Status</button>
+            <button class="btn-neutral" onclick="closeAlertDetails()">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- container para cards flutuantes (mantive seu id) -->
+<div id="alert-details-container"></div>
+
+<!-- Leaflet.js -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/js/ChannelMap.js"></script>
+<script src="/js/ChannelUpdate.js"></script>
+<script src="/js/AlertWebsocket.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

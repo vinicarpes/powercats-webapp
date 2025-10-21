@@ -1,0 +1,354 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f8;
+}
+
+.text-custom {
+    color: #FF891A;
+    font-weight: 600;
+}
+
+.bg-custom {
+    background-color: #FF891A !important;
+}
+
+.direita {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.borda {
+    border: 2px solid #FF891A;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.borda:hover {
+    background-color: #fff2f2;
+}
+
+.butt {
+    transition: all 0.2s;
+}
+
+.butt:hover {
+    background-color: #f89b4b;
+}
+
+a {
+    transition: all 0.2s;
+}
+
+a:hover {
+    color: #f89b4b;
+}
+
+table {
+    border: 1px solid gray;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+thead {
+    border-top: 2px solid gray;
+    background-color: #FF891A;
+    color: white;
+    font-weight: 600;
+}
+
+.rig, .fir, .bac {
+    width: 45px;
+    height: 40px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+    transition: all 0.2s;
+}
+
+.rig {
+    background-color: #FF0000;
+    border: 1px solid #FF0000;
+    color: white;
+}
+
+.fir {
+    background-color: #c5c5c5;
+    border: 1px solid #c5c5c5;
+    color: white;
+}
+
+.bac {
+    background-color: #FF891A;
+    border: 1px solid #FF891A;
+    color: white;
+}
+
+.user {
+    margin-left: 50px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.option {
+    background-color: #FF891A;
+    width: 250px;
+    height: 100px;
+    border-radius: 30px;
+    border: 1px solid #FF891A;
+    cursor: pointer;
+    color: black;
+    transition: all 0.2s;
+}
+
+.option:hover {
+    background-color: #f89b4b;
+    color: white;
+}
+
+.ic {
+    float: left;
+}
+
+.cad {
+    float: right;
+}
+
+.out {
+    color: black;
+    transition: all 0.2s;
+}
+
+.out:hover {
+    color: #383636;
+}
+
+.op2 {
+    width: 218px;
+}
+
+.rot {
+    font-size: 25px;
+}
+
+.bc {
+    background-color: white;
+    color: #FF891A;
+    border: 1px solid #FF891A;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.bc:hover {
+    background-color: #FF891A;
+    color: white;
+}
+
+.opt2 {
+    background-color: #FF891A;
+    width: 100px;
+    height: 70px;
+    border-radius: 15px;
+    border: 1px solid #FF891A;
+    cursor: pointer;
+    color: black;
+    float: right;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.opt2:hover {
+    background-color: #f89b4b;
+    color: white;
+}
+/* Modal oculto por padrão */
+#alert-details-modal {
+    display: none; /* fica escondido */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mostrar modal */
+#alert-details-modal.show {
+    display: flex;
+}
+
+/* Conteúdo do modal */
+#alert-details-modal .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;         /* largura fixa */
+    max-width: 90%;       /* responsivo para telas pequenas */
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.permission-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem; /* espaçamento entre cards */
+    margin-top: 2rem;
+}
+
+.permission-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 15px;
+    width: 220px;
+    height: 220px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: black;
+}
+
+.permission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card-icon {
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.card-subtitle {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Navbar personalizada */
+.navbar.bg-custom {
+    background-color: #ff891a;
+    color: white;
+}
+
+.navbar .page-title h4 {
+    color: white;
+    font-weight: 500;
+}
+
+.user-info p, .user-info small {
+    color: #fff;
+}
+
+.btn-outline-danger {
+    border-color: #fff;
+    color: #fff;
+}
+
+.btn-outline-danger:hover {
+    background-color: #fff;
+    color: #ff6600;
+}
+
+.material-symbols-outlined {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.container.mt-5 {
+    max-width: 1200px;
+}
+.device-list-container {
+    max-height: 500px; /* altura fixa da lista */
+    overflow-y: auto; /* barra de rolagem vertical quando necessário */
+    border: 1px solid #ff6600;
+    border-radius: 8px;
+    padding: 0;
+}
+
+.device-list-container li {
+    cursor: pointer;
+}
+
+.device-list-container li:hover {
+    background-color: #ffeedb;
+}
+.borda {
+    border: 2px solid #FF891A !important;
+    border-radius: 10px !important;
+}
+.bg-custom {
+    background-color: #FF891A !important;
+    color: white !important;
+}
+.text-custom {
+    color: #FF891A !important;
+}
+.sensor-card {
+    border: 2px solid #FF891A;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #fff8f2;
+    position: relative;
+}
+.remove-sensor-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #FF891A;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.remove-sensor-btn:hover {
+    background-color: #f89b4b;
+}
+.add-sensor-btn {
+    border: 2px solid #FF891A;
+    border-radius: 20px;
+    background-color: white;
+    color: #FF891A;
+    padding: 8px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.add-sensor-btn:hover {
+    background-color: #FF891A;
+    color: white;
+}
+.btn-confirm {
+    background-color: #FF891A;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 0;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn-confirm:hover {
+    background-color: #f89b4b;
+}
+h2, h5 {
+    font-weight: bold;
+}
+

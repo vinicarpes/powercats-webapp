@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de usuário</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container mt-5 w-50">
+    <h2 class="text-center mb-5 text-custom">Cadastrar-se</h2>
+    <div th:if="${param.success}" class="alert alert-success">
+        Cadastro realizado com sucesso! Faça login.
+    </div>
+
+    <form th:action="@{/register}" th:object="${user}" method="post" class="form-container">
+
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+
+        <!-- Dados Pessoais -->
+        <h5 class="mb-3 text-custom">Dados Pessoais</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>Nome</label>
+                <div class="input-group">
+                    <div class="input-group-prepend bg-blue">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">person</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" th:field="*{name}" placeholder="Fulano da Silva" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Data de nascimento</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">calendar_today</span></span>
+                    </div>
+                    <input type="date" class="form-control mb-4 borda" th:field="*{birthDate}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>E-mail</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">alternate_email</span></span>
+                    </div>
+                    <input type="email" class="form-control mb-4 borda" placeholder="exemplo@mail.com" th:field="*{email}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Telefone</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">call</span></span>
+                    </div>
+                    <input type="tel" class="form-control mb-4 borda" placeholder="48999913451" th:field="*{fone}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Senha</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">key</span></span>
+                    </div>
+                    <input type="password" class="form-control mb-4 borda" placeholder="*********" th:field="*{password}" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dados do Endereço -->
+        <h5 class="mb-3 text-custom">Endereço</h5>
+        <div class="row">
+            <div class="col-lg-6">
+                <label>CEP</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">mailbox</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="00000-000" th:field="*{address.postalCode}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Endereço</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">home</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="Rua das Flores" th:field="*{address.address}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Número</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">tag</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="123" th:field="*{address.nmbr}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Complemento</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">add_home</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="Apto 101 (opcional)" th:field="*{address.complement}">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Bairro</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">location_city</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="Centro" th:field="*{address.district}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Cidade</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">apartment</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="Florianópolis" th:field="*{address.city}" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <label>Estado</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text mb-4"><span class="material-symbols-outlined">map</span></span>
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" placeholder="Santa Catarina" th:field="*{address.state}" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de cadastro -->
+        <button type="submit" class="btn btn-primary btn-block bg-custom rounded-pill mb-4 d-flex butt">
+            <span class="material-symbols-outlined">logout</span>
+            <span class="flex-grow-1">Cadastrar</span>
+        </button>
+    </form>
+
+    <!-- Links de login e Google -->
+    <div class="direita">
+        <a href="/login" class="mt-3 text-custom">Já possui conta? Entrar</a>
+    </div>
+
+    <button type="button" class="btn btn-outline-primary btn-block mt-3 bg-custom text-light rounded-pill d-flex btn-google butt">
+        <i class="fab fa-google mt-1"></i>
+        <span class="flex-grow-1">Cadastrar com Google</span>
+    </button>
+</div>
+
+</body>
+</html>

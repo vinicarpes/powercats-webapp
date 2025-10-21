@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalação</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container mt-5 w-50">
+    <h2 class="text-center mb-5 text-custom">Instalação do Dispositívo</h2>
+    <form action="/submit-form" method="POST" class="form-container">
+        <!-- Nome -->
+        <div class="row">
+            <div class="col-lg-6">
+                <label for="nome">Dispotivo</label>
+                <div class="input-group ">
+                    <div class="input-group-prepend bg-blue">
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" id="nome" placeholder="Dispositivo 1 – E0-C4-2C-25-79-51" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Data de nascimento -->
+                <label for="data">Técnico</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" id="data" placeholder="Fulano da Silva" required>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Email -->
+                <label for="email">Local</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" class="form-control mb-4 borda" id="email" placeholder="Rua José Maria, 100, Florianópolis, SC" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Telefone -->
+                <label for="telefone">ID do canal do gateway</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" class="form-control mb-3 borda" id="telefone" placeholder="23bf9a2cb3a944febc04d1760ebe765f" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- Senha -->
+                <label for="DTI">Data inical</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="date" class="form-control mb-5 borda" id="DTI" placeholder="Sua senha" required>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Senha -->
+                <label for="DTF">Data Final</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="date" class="form-control mb-5 borda" id="DTF" placeholder="Sua senha" required>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="d-flex">
+        <button type="button" class="btn btn-block bg-custom rounded-pill mr-3 bc">
+            <span>Cancelar</span>
+        </button>
+
+        <button type="button" class="btn btn-block bg-custom text-light rounded-pill ">
+            <span>Confirmar</span>
+        </button>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

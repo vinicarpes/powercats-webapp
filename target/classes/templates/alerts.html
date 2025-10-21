@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Alertas</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav th:replace="~{fragments :: navHeader('Administrador')}"></nav>
+
+<div id="alerts-container"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5 text-custom">Lista de Alertas</h2>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Dispositivo</th>
+            <th>Descrição</th>
+            <th>Última atualização</th>
+            <th>Nível</th>
+            <th>Estado</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="alert : ${alerts}">
+            <td th:text="${alert.id}"></td>
+            <td th:text="${alert.channel != null ? alert.channel.id : 'Sem canal'}"></td>
+            <td th:text="${alert.description}"></td>
+            <td th:text="${#temporals.format(alert.alertDate, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${alert.alertLevel}"></td>
+            <td id="alert-status-${alert.id}" th:text="${alert.statusAlert}"></td>
+            <td>
+                <button class="btn bc btn-sm"
+                        th:attr="data-id=${alert.id},
+                                     data-level=${alert.alertLevel},
+                                     data-status=${alert.statusAlert},
+                                     data-date=${#temporals.format(alert.alertDate, 'dd/MM/yyyy HH:mm')},
+                                     data-description=${alert.description}"
+                        onclick="openAlertDetails(this)">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+            Linhas por página:
+            <select id="pageSizeSelect" class="custom-select d-inline-block w-auto"
+                    onchange="changePageSize(this.value)">
+                <option th:value="10" th:selected="${pageSize == 10}">10</option>
+                <option th:value="20" th:selected="${pageSize == 20}">20</option>
+                <option th:value="30" th:selected="${pageSize == 30}">30</option>
+            </select>
+        </div>
+
+        <div class="btn-group" role="group" aria-label="Navegação de páginas">
+            <button type="button" class="btn bc btn-sm"
+                    th:disabled="${currentPage == 0}"
+                    th:onclick="'goToPage(' + (${currentPage} - 1) + ')'">Anterior</button>
+
+            <span class="mx-2 align-self-center">Página <span th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span></span>
+
+            <button type="button" class="btn bc btn-sm"
+                    th:disabled="${currentPage + 1 >= totalPages}"
+                    th:onclick="'goToPage(' + (${currentPage} + 1) + ')'">Próxima</button>
+        </div>
+    </div>
+
+    <div id="alert-details-modal">
+        <div class="modal-content">
+            <h3 id="modal-title" class="text-custom">Detalhes do Alerta</h3>
+            <p><strong>ID:</strong> <span id="modal-id"></span></p>
+            <p><strong>Nível:</strong> <span id="modal-level"></span></p>
+            <p><strong>Status:</strong> <span id="modal-status"></span></p>
+            <p><strong>Última atualização:</strong> <span id="modal-date"></span></p>
+            <p><strong>Descrição:</strong> <span id="modal-description"></span></p>
+
+            <p><strong>Novo Status:</strong></p>
+            <select id="modal-status-select" class="form-control mb-2">
+                <option value="PENDING">PENDING</option>
+                <option value="CANCELLED">CANCELLED</option>
+                <option value="FULFILLED">FULFILLED</option>
+            </select>
+
+            <button class="btn bc mt-2" onclick="updateAlertStatus()">Atualizar Status</button>
+            <button class="btn bc mt-2" onclick="closeAlertDetails()">Fechar</button>
+        </div>
+    </div>
+
+    <div id="alert-details-container"></div>
+</div>
+
+<script>
+    function goToPage(page) {
+        const size = document.getElementById('pageSizeSelect').value;
+        window.location.href = `/alerts?page=${page}&size=${size}`;
+    }
+
+    function changePageSize(size) {
+        window.location.href = `/alerts?page=0&size=${size}`;
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script src="/js/AlertWebsocket.js"></script>
+
+</body>
+</html>
